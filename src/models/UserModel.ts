@@ -7,7 +7,10 @@ interface IUser extends Document {
     avatar: string;
     status: 'online' | 'offline';
     createdAt: Date;
-    chatRecord?: Schema.Types.ObjectId[];
+    // chatRecord: {
+    //     roomId: Schema.Types.ObjectId;
+    //     receiver: Schema.Types.ObjectId;
+    // }[];
     resetPasswordToken?: string;
     resetPasswordExpires?: Date;
 }
@@ -18,18 +21,18 @@ const userSchema = new Schema<IUser>({
     email: {type: String, required: true, unique: true},
     avatar: {type: String, default: 'https://www.gravatar.com/avatar/?d=identicon'},
     status: {type: String, enum: ['online', 'offline'], default: 'offline'},
-    chatRecord: [
-        {
-            roomId: {
-                type: Schema.Types.ObjectId,
-                ref: 'Room',
-            },
-            receiver: {
-                type: Schema.Types.ObjectId,
-                ref: 'User',
-            },
-        },
-    ],
+    // chatRecord: [
+    //     {
+    //         roomId: {
+    //             type: Schema.Types.ObjectId,
+    //             ref: 'Room',
+    //         },
+    //         receiver: {
+    //             type: Schema.Types.ObjectId,
+    //             ref: 'User',
+    //         },
+    //     },
+    // ],
     createdAt: {type: Date, default: Date.now},
     resetPasswordToken: {type: String},
     resetPasswordExpires: {type: Date},
